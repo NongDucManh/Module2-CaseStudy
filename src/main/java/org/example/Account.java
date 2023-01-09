@@ -12,7 +12,7 @@ public class Account {
     private double accountBalance;
     private String phoneNumber;
     private String address;
-    private int money;
+    private double money;
     private List<Receiver> receiverList = new ArrayList<>();
     private List<Transfer> transferList = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class Account {
         this.accountBalance = accountBalance;
     }
 
-    public Account(String fullName, String accountNumber, double accountBalance, String phoneNumber, String address, int money) {
+    public Account(String fullName, String accountNumber, double accountBalance, String phoneNumber, String address, double money) {
         this.fullName = fullName;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -77,19 +77,12 @@ public class Account {
         this.address = address;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
     public void setMoney(int money) {
         this.money = money;
-    }
-
-    @Override
-    public String toString() {
-        Locale locale = new Locale("en", "US");
-        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        return  accountNumber + "-" + fullName + "-" + fmt.format(accountBalance);
     }
 
     public void input() {
@@ -139,20 +132,4 @@ public class Account {
             transfer.display();
         }
     }
-    public static String getHeader() {
-        return "Infor:";
-    }
-//    @Override
-//    public String getFileInfor() {
-//    return fullName + "," + accountNumber + "," + phoneNumber + "," + address + "," + money;
-//    }
-//    @Override
-//    public void putFileInfor(String str) {
-//        String[] param = str.split(",");
-//        fullName = param[0];
-//        accountNumber = param[1];
-//        phoneNumber = param[2];
-//        address = param[3];
-//        accountBalance = Integer.parseInt(param[4]);
-//    }
 }

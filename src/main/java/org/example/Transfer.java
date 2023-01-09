@@ -48,10 +48,10 @@ public class Transfer {
     @Override
     public String toString() {
         return "Transfer{" +
-                "transferAccount='" + transferAccount + '\'' +
-                ", note='" + note + '\'' +
-                ", money=" + money +
-                ", creatAt=" + getCreatAtString() +
+                "Receiving account number='" + transferAccount + '\'' +
+                ", Message = '" + note + '\'' +
+                ", Money = " + "$" + money +
+                ", Transaction Date = " + getCreatAtString() +
                 '}';
     }
     public void display() {
@@ -64,7 +64,7 @@ public class Transfer {
         transferAccount = scanner.nextLine();
 
         for (;;) {
-            System.out.println("Enter amount: ");
+            System.out.println("Enter amount ($): ");
             money = Double.parseDouble(scanner.nextLine());
             if (money <= maxMoney) {
                 break;
@@ -77,7 +77,7 @@ public class Transfer {
 
         Account receiverAccountBalance = Main.listAccounts.get(transferAccount);
         if(receiverAccountBalance == null) {
-            System.out.println("receiver account not exist");
+            System.err.println("Receiver account not exist!!!");
             return;
         }
         double currentReceiverAccountBalance = receiverAccountBalance.getAccountBalance();

@@ -12,7 +12,7 @@ public class Main {
 
         login();
         loadFileCsv();
-        System.out.println("The next step!");
+        System.out.println("The next step:");
         int choose;
         do {
             showMenu();
@@ -25,11 +25,11 @@ public class Main {
                     break;
                 case 2:
                     if(!isAdmin) {
-                        System.out.println("Not have permisssion to do this feature ");
+                        System.err.println("You do not have access to this feature!!!");
                         break;
                     }
                     if (listAccounts.size() == 0) {
-                        System.err.println("Must have at lease one account!!!");
+                        System.err.println("You do not have an account in the system!!!");
                         break;
                     }
 
@@ -75,9 +75,16 @@ public class Main {
                 case 6:
                     System.out.println("List accounts: ");
                     int number = 1;
+                    System.out.printf("----------------------------------------------------------------------------------------------%n");
+                    System.out.printf("                                            LIST ACCOUNTS                                     %n");
+                    System.out.printf("----------------------------------------------------------------------------------------------%n");
+
+                    System.out.printf(" | %-15s | %-20s | %-10s | %-30s |%n", "ORDINAL NUMBERS","ACCOUNT NUMBER", "NAME", "ACCOUNT BALANCE");
                     for (Map.Entry<String, Account> entry : listAccounts.entrySet()) {
-                        System.out.println( number++ + " " + entry.getValue().toString());
+                        System.out.printf(" | %-15s | %-20s | %-10s |$ %-30s|%n", number++,
+                                entry.getValue().getAccountNumber(), entry.getValue().getFullName(), entry.getValue().getAccountBalance());
                     }
+                    System.out.printf("----------------------------------------------------------------------------------------------%n");
                     break;
                 case 7:
                     System.out.println("Account number to remove: ");
@@ -91,14 +98,14 @@ public class Main {
                 case 8:
                     System.out.println("Exit!");
                     break;
-                case 11:
+                case 9:
                     saveCsv();
                     break;
                 case 10:
-                    System.out.println("Exist system");
+                    System.out.println("Exit system");
                     System.exit(0);
                 default:
-                    System.out.println("You entered the wrong!Enter choice: 0~8");
+                    System.out.println("You entered the wrong!Enter choice: 0~10");
                     break;
             }
         } while (true);
@@ -187,11 +194,12 @@ public class Main {
         System.out.println("5. Transfer Money History");
         System.out.println("6. Show List Accounts");
         System.out.println("7. Remove Account");
-        System.out.println("8. Read file");
-        System.out.println("10. Exit");
+        System.out.println("8. Exit!");
+        System.out.println("9. Save CSV File");
+        System.out.println("10. Exit system!");
     }
     static void login() {
-        System.out.println("----------WELCOME TO TECHCOMBANK----------");
+        System.out.println("----------WELCOME TO BANK----------");
         System.out.println("UserName: ");
         String userName = scanner.nextLine();
         System.out.println("PassWord: ");
@@ -199,7 +207,7 @@ public class Main {
         if (userName.equalsIgnoreCase("admin") && password.equals("123456")) {
             System.out.println("Congratulations! Successfully logged!");
             Main.isAdmin = true;
-        } else if (userName.equalsIgnoreCase("user") && password.equals("123457")) {
+        } else if (userName.equalsIgnoreCase("user") && password.equals("123456")) {
             Main.isAdmin = false;
         } else {
             System.err.println("Failed login!");
