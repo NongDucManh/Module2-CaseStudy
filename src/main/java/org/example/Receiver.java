@@ -44,7 +44,6 @@ public class Receiver {
                 ", Transaction Date = " + getCreatAtString() +
                 '}';
     }
-//Nạp tiền vào tk
     public void recharge() {
         System.out.println("Recharge Information ");
         Scanner scanner = new Scanner(System.in);
@@ -57,8 +56,8 @@ public class Receiver {
 //    Hiển thị thời gian
     public String getCreatAtString() {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
-        String str = format.format(creatAt);
-        return str;
+        String string = format.format(creatAt);
+        return string;
     }
     public void display() {
         System.out.println(toString());

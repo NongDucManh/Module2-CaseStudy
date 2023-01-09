@@ -9,7 +9,6 @@ public class Main {
 
     public static boolean isAdmin = false;
     public static void main(String[] args) throws IOException {
-
         login();
         loadFileCsv();
         System.out.println("The next step:");
@@ -110,7 +109,7 @@ public class Main {
             }
         } while (true);
     }
-    private static final String FILE_HEADER = "account_number,full name,balance";
+    private static final String FILE_HEADER = "Account Number,Name,Account Balance";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static void saveCsv() {
         FileWriter fileWriter = null;

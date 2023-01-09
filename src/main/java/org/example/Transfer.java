@@ -85,7 +85,7 @@ public class Transfer {
     }
     public String getCreatAtString() {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
-        String str = format.format(creatAt);
-        return str;
+        String string = format.format(creatAt);
+        return string;
     }
 }
