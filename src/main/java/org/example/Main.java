@@ -8,6 +8,7 @@ public class Main {
     public static Map<String, Account> listAccounts = new HashMap<>();
 
     public static boolean isAdmin = false;
+
     public static void main(String[] args) throws IOException {
         login();
         loadFileCsv();
@@ -23,7 +24,7 @@ public class Main {
                     listAccounts.put(account.getAccountNumber(), account);
                     break;
                 case 2:
-                    if(!isAdmin) {
+                    if (!isAdmin) {
                         System.err.println("You do not have access to this feature!!!");
                         break;
                     }
@@ -46,7 +47,7 @@ public class Main {
 
                     System.out.println("Account number to transfer: ");
                     Account currentAccountNumberToTransfer = listAccounts.get(scanner.nextLine());
-                    
+
                     if (currentAccountNumberToTransfer != null) {
                         currentAccountNumberToTransfer.transfer();
                     } else {
@@ -63,7 +64,7 @@ public class Main {
                     }
                     break;
                 case 5:
-                   System.out.println("Account number to show history transfer: ");
+                    System.out.println("Account number to show history transfer: ");
                     Account currentAccountNumberToMoneyTransferHistory = listAccounts.get(scanner.nextLine());
                     if (currentAccountNumberToMoneyTransferHistory != null) {
                         currentAccountNumberToMoneyTransferHistory.displayTransferMoneyHistory();
@@ -74,16 +75,16 @@ public class Main {
                 case 6:
                     System.out.println("List accounts: ");
                     int number = 1;
-                    System.out.printf("----------------------------------------------------------------------------------------------%n");
-                    System.out.printf("                                            LIST ACCOUNTS                                     %n");
-                    System.out.printf("----------------------------------------------------------------------------------------------%n");
+                    System.out.printf("-----------------------------------------------------------------------------------------%n");
+                    System.out.printf("                                            LIST ACCOUNTS                                %n");
+                    System.out.printf("-----------------------------------------------------------------------------------------%n");
 
-                    System.out.printf(" | %-15s | %-20s | %-10s | %-30s |%n", "ORDINAL NUMBERS","ACCOUNT NUMBER", "NAME", "ACCOUNT BALANCE");
+                    System.out.printf(" | %-15s | %-20s | %-10s | %-30s |%n", "ORDINAL NUMBERS", "ACCOUNT NUMBER", "NAME", "ACCOUNT BALANCE");
                     for (Map.Entry<String, Account> entry : listAccounts.entrySet()) {
                         System.out.printf(" | %-15s | %-20s | %-10s |$ %-30s|%n", number++,
                                 entry.getValue().getAccountNumber(), entry.getValue().getFullName(), entry.getValue().getAccountBalance());
                     }
-                    System.out.printf("----------------------------------------------------------------------------------------------%n");
+                    System.out.printf("-----------------------------------------------------------------------------------------%n");
                     break;
                 case 7:
                     System.out.println("Account number to remove: ");
@@ -95,13 +96,14 @@ public class Main {
                     }
                     break;
                 case 8:
-                    System.out.println("Exit!");
-                    break;
-                case 9:
                     saveCsv();
                     break;
+                case 9:
+                    System.out.println("Logout!");
+                    login();
+                    break;
                 case 10:
-                    System.out.println("Exit system");
+                    System.out.println("Exit system!");
                     System.exit(0);
                 default:
                     System.out.println("You entered the wrong!Enter choice: 0~10");
@@ -109,22 +111,21 @@ public class Main {
             }
         } while (true);
     }
+
     private static final String FILE_HEADER = "Account Number,Name,Account Balance";
     private static final String NEW_LINE_SEPARATOR = "\n";
+
     private static void saveCsv() {
         FileWriter fileWriter = null;
 
         try {
             fileWriter = new FileWriter("src/main/java/org/example/Data/MyFile.csv");
 
-            // Write the CSV file header
             fileWriter.append(FILE_HEADER);
 
-            // Add a new line separator after the header
             fileWriter.append(NEW_LINE_SEPARATOR);
 
-            // Write a new Country object list to the CSV file
-            for (Map.Entry<String,Account> accountEntry : listAccounts.entrySet()) {
+            for (Map.Entry<String, Account> accountEntry : listAccounts.entrySet()) {
                 fileWriter.append(accountEntry.getValue().getAccountNumber());
                 fileWriter.append(",");
                 fileWriter.append(accountEntry.getValue().getFullName());
@@ -155,7 +156,6 @@ public class Main {
             String line;
             br = new BufferedReader(new FileReader("src/main/java/org/example/Data/MyFile.csv"));
 
-            // How to read file in java line by line?
             while ((line = br.readLine()) != null) {
                 if (line.equalsIgnoreCase(FILE_HEADER)) {
                     continue;
@@ -179,7 +179,7 @@ public class Main {
     public static void parseCsvLine(String csvLine) {
         if (csvLine != null) {
             String[] splitData = csvLine.split(",");
-            Account account = new Account(splitData[1],splitData[0], Double.parseDouble(splitData[2]));
+            Account account = new Account(splitData[1], splitData[0], Double.parseDouble(splitData[2]));
             listAccounts.put(account.getAccountNumber(), account);
         }
     }
@@ -193,10 +193,11 @@ public class Main {
         System.out.println("5. Transfer Money History");
         System.out.println("6. Show List Accounts");
         System.out.println("7. Remove Account");
-        System.out.println("8. Exit!");
-        System.out.println("9. Save CSV File");
+        System.out.println("8. Save CSV File");
+        System.out.println("9. Logout");
         System.out.println("10. Exit system!");
     }
+
     static void login() {
         System.out.println("----------WELCOME TO BANK----------");
         System.out.println("UserName: ");
@@ -209,7 +210,7 @@ public class Main {
         } else if (userName.equalsIgnoreCase("user") && password.equals("123456")) {
             Main.isAdmin = false;
         } else {
-            System.err.println("Failed login!");
+            System.err.println("Failed! Please login again!");
             login();
         }
     }

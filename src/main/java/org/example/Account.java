@@ -1,9 +1,7 @@
 package org.example;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Account {
@@ -15,7 +13,6 @@ public class Account {
     private double money;
     private List<Receiver> receiverList = new ArrayList<>();
     private List<Transfer> transferList = new ArrayList<>();
-
 
 
     public Account() {
@@ -114,7 +111,6 @@ public class Account {
     }
 
     public void display() {
-        System.out.println(toString());
         displayMoneyTopUpHistory();
         displayTransferMoneyHistory();
     }

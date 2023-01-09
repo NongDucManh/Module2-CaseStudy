@@ -54,18 +54,28 @@ public class Transfer {
                 ", Transaction Date = " + getCreatAtString() +
                 '}';
     }
+
     public void display() {
         System.out.println(toString());
     }
+
     public void input(double maxMoney) {
         System.out.println("Enter deposit information: ");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter account number to receive: ");
         transferAccount = scanner.nextLine();
-
-        for (;;) {
-            System.out.println("Enter amount ($): ");
-            money = Double.parseDouble(scanner.nextLine());
+        boolean flag = true;
+        for (; ; ) {
+            do {
+                try {
+                    System.out.println("Enter amount ($): ");
+                    money = Double.parseDouble(scanner.nextLine());
+                    flag = false;
+                } catch (NumberFormatException e) {
+                    System.err.println("Wrong format, re-enter!!!");
+                }
+            }
+            while (flag);
             if (money <= maxMoney) {
                 break;
             }
@@ -74,18 +84,18 @@ public class Transfer {
         System.out.println("Money transfer content: ");
         note = scanner.nextLine();
         creatAt = new Date();
-
         Account receiverAccountBalance = Main.listAccounts.get(transferAccount);
-        if(receiverAccountBalance == null) {
+        if (receiverAccountBalance == null) {
             System.err.println("Receiver account not exist!!!");
             return;
         }
         double currentReceiverAccountBalance = receiverAccountBalance.getAccountBalance();
         receiverAccountBalance.setAccountBalance(currentReceiverAccountBalance + money);
     }
+
     public String getCreatAtString() {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
-        String string = format.format(creatAt);
-        return string;
+        String string1 = format.format(creatAt);
+        return string1;
     }
 }

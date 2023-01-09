@@ -44,21 +44,33 @@ public class Receiver {
                 ", Transaction Date = " + getCreatAtString() +
                 '}';
     }
+
     public void recharge() {
         System.out.println("Recharge Information ");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter amount ($): ");
-        money = Double.parseDouble(scanner.nextLine());
+        boolean flag = true;
+        do {
+            try {
+                System.out.println("Enter amount ($): ");
+                money = Double.parseDouble(scanner.nextLine());
+                flag = false;
+            } catch (NumberFormatException e) {
+                System.err.println("Wrong format, re-enter!!!");
+            }
+        }
+        while (flag);
         System.out.println("Money transfer content: ");
         note = scanner.nextLine();
         creatAt = new Date();
     }
-//    Hiển thị thời gian
+
+    //    Hiển thị thời gian
     public String getCreatAtString() {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
         String string = format.format(creatAt);
         return string;
     }
+
     public void display() {
         System.out.println(toString());
     }
